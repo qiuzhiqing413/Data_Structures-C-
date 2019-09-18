@@ -261,3 +261,143 @@ void ChList::List_Out(ChListPtr L)
 	}
 	std::cout << tmp->Data << " ]" << std::endl;
 }
+
+bool ChList::List_Clear()
+{
+	ChListPtr tmp = this;
+	if (tmp == nullptr)
+	{
+		return false;
+	}
+
+	while (tmp != nullptr)
+	{
+		this->Next = tmp->Next;
+		delete tmp;
+		tmp = this->Next;
+	}
+
+	return true;
+}
+
+bool ChList::List_Clear(ChListPtr L)
+{
+	ChListPtr tmp = L;
+	if (tmp == nullptr)
+	{
+		return false;
+	}
+
+	while (tmp != nullptr)
+	{
+		L->Next = tmp->Next;
+		delete tmp;
+		tmp = L->Next;
+	}
+
+	return true;
+}
+
+void ChList::List_Destory()
+{
+	List_Clear();
+	delete this;
+}
+
+void ChList::List_Destory(ChListPtr L)
+{
+	List_Clear(L);
+	delete L;
+}
+
+bool ChList::List_IsEmpty()
+{
+	if (this->Next == nullptr)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool ChList::List_Prior(int pos, ElemType* elem)
+{
+	ChListPtr tmp = this;
+	int i;
+
+	if (pos <= 1 || pos > List_Length())
+	{
+		return false;
+	}
+
+	for (i = 0; i < pos - 1; i++)
+	{
+		tmp = tmp->Next;
+	}
+
+	*elem = tmp->Data;
+
+	return true;
+}
+
+bool ChList::List_Prior(ChListPtr L, int pos, ElemType* elem)
+{
+	ChListPtr tmp = L;
+	int i;
+
+	if (pos <= 1 || pos > List_Length(L))
+	{
+		return false;
+	}
+
+	for (i = 0; i < pos - 1; i++)
+	{
+		tmp = tmp->Next;
+	}
+
+	*elem = tmp->Data;
+
+	return true;
+}
+
+bool ChList::List_Next(int pos, ElemType* elem)
+{
+	ChListPtr tmp = this;
+	int i;
+
+	if (pos < 0 || pos >= List_Length())
+	{
+		return false;
+	}
+
+	for (i = 0; i < pos + 1; i++)
+	{
+		tmp = tmp->Next;
+	}
+
+	*elem = tmp->Data;
+
+	return true;
+}
+
+bool ChList::List_Next(ChListPtr L, int pos, ElemType* elem)
+{
+	ChListPtr tmp = L;
+	int i;
+
+	if (pos < 0 || pos >= List_Length(L))
+	{
+		return false;
+	}
+
+	for (i = 0; i < pos + 1; i++)
+	{
+		tmp = tmp->Next;
+	}
+
+	*elem = tmp->Data;
+
+	return true;
+}
