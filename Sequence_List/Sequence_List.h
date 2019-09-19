@@ -2,7 +2,7 @@
 #pragma once
 typedef double ElemType;
 typedef class SQList* SQListPtr, & SQListRef;
-const int LIST_INIT_SIZE = 100;
+const int LIST_INIT_SIZE = 1000;
 const int ELEMENT_LENGTH = sizeof(ElemType);
 
 //注意，此处顺序表的下标是从0开始的。
@@ -15,6 +15,7 @@ private:
 public:
 	SQList();
 	SQList(ElemType elem[], int n);
+	~SQList();
 	bool List_Retrieve(int pos, ElemType &elem); //按位置查找
 	static bool List_Retrieve(SQListRef L, int pos, ElemType &elem); //按位置查找
 	bool List_Locate(ElemType elem, int& pos); //按值查找

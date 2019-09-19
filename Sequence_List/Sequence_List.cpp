@@ -16,6 +16,11 @@ SQList::SQList(ElemType elem[], int n) : Length(n), ListSize(n* ELEMENT_LENGTH)
 	}
 }
 
+SQList::~SQList()
+{
+	delete[] Data;
+}
+
 bool SQList::List_Retrieve(int pos, ElemType& elem)
 {
 	if (pos > Length || pos <= 0)
@@ -80,6 +85,8 @@ bool SQList::List_Insert(int pos, ElemType elem)
 	{
 		Data[i] = Data[i - 1];
 	}
+	Length++;
+	ListSize = Length * ELEMENT_LENGTH;
 	Data[i] = elem;
 	return true;
 }
@@ -100,6 +107,8 @@ bool SQList::List_Insert(SQListRef L, int pos, ElemType elem)
 	{
 		L.Data[i] = L.Data[i - 1];
 	}
+	L.Length++;
+	L.ListSize = L.Length * ELEMENT_LENGTH;
 	L.Data[i] = elem;
 	return true;
 }
@@ -138,47 +147,142 @@ bool SQList::List_Remove(SQListRef L, int pos)
 
 void SQList::List_Clear()
 {
-
+	if (Length == 0)
+	{
+		return;
+	}
+	else
+	{
+		Length = 0;
+		ListSize = Length * ELEMENT_LENGTH;
+		return;
+	}
 }
 
 void SQList::List_Clear(SQListRef L)
 {
+	if (L.Length == 0)
+	{
+		return;
+	}
+	else
+	{
+		L.Length = 0;
+		L.ListSize = L.Length * ELEMENT_LENGTH;
+		return;
+	}
 }
 
 bool SQList::List_Empty()
 {
-	return false;
+	if (Length == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool SQList::List_Empty(SQListRef L)
 {
-	return false;
+	if (L.Length == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool SQList::List_Prior(int pos, ElemType& elem)
 {
-	return false;
+	if (pos > Length || pos <= 1)
+	{
+		return false;
+	}
+	else
+	{
+		elem = Data[pos - 2];
+		return false;
+	}
 }
 
 bool SQList::List_Prior(SQListRef L, int pos, ElemType& elem)
 {
-	return false;
+	if (pos > L.Length || pos <= 1)
+	{
+		return false;
+	}
+	else
+	{
+		elem = L.Data[pos - 2];
+		return false;
+	}
 }
 
 bool SQList::List_Next(int pos, ElemType& elem)
 {
-	return false;
+	if (pos > Length - 1 || pos <= 0)
+	{
+		return false;
+	}
+	else
+	{
+		elem = Data[pos];
+		return false;
+	}
 }
 
 bool SQList::List_Next(SQListRef L, int pos, ElemType& elem)
 {
-	return false;
+	if (pos > L.Length - 1 || pos <= 0)
+	{
+		return false;
+	}
+	else
+	{
+		elem = L.Data[pos];
+		return false;
+	}
 }
 
 void SQList::List_Out()
 {
+	int i;
+
+	std::cout << "[ ";
+	for (i = 0; i < Length - 1; i++)
+	{
+		std::cout << Data[i] << ", ";
+	}
+	if (Length != 0)
+	{
+		std::cout << Data[i] << " ]" << std::endl;
+	}
+	else
+	{
+		std::cout << "]" << std::endl;
+	}
 }
 
 void SQList::List_Out(SQListRef L)
 {
+	int i;
+
+	std::cout << "[ ";
+	for (i = 0; i < L.Length - 1; i++)
+	{
+		std::cout << L.Data[i] << ", ";
+	}
+	if (L.Length != 0)
+	{
+		std::cout << L.Data[i] << " ]" << std::endl;
+	}
+	else
+	{
+		std::cout << "]" << std::endl;
+	}
 }
