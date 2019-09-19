@@ -1,8 +1,11 @@
 //顺序表并不涉及太多的指针操作，因此这里尝试用引用代替大部分指针。
 #pragma once
-
+typedef double ElemType;
+typedef class SQList* SQListPtr, & SQListRef;
 const int LIST_INIT_SIZE = 100;
+const int ELEMENT_LENGTH = sizeof(ElemType);
 
+//注意，此处顺序表的下标是从0开始的。
 class SQList
 {
 private:
@@ -31,6 +34,3 @@ public:
 	void List_Out(); //标准输出顺序表的元素
 	static void List_Out(SQListRef L); //标准输出顺序表的元素
 };
-
-typedef double ElemType;
-typedef class SQList* SQListPtr, & SQListRef;
