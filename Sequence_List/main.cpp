@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 	L.List_Clear();
 	std::cout << L.List_Empty() << std::endl;
 	L.List_Out();
-	delete &L;
 
+	//注意，不要在这里加上delete &L。return语句执行时，将会自动释放掉L。
 	return 0;
 }
